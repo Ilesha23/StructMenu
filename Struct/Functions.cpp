@@ -26,36 +26,97 @@ string RandomString(size_t)
 	return random_string;
 }
 
-void CreateStruct(book* arr, int size)
-{
-	system("cls");
-	ofstream out;
-	out.open("in.txt", ofstream::out | ofstream::trunc);
-	cout << "UNSORTED" << endl;
-	for (auto i = 0; i < size; i++)
-	{
-		arr[i].a = RandomString(size);
-		arr[i].n = rand() % 90 + 10;
-		arr[i].g = rand() % 100 + 1900;
-	}
-	cout << endl;
-}
-
-void Print(book* arr, int size)
+void Print(book* arr, int& size)
 {
 	HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsoleHandle, 5);
 	ofstream out;
 	out.open("in.txt", ofstream::out | ofstream::trunc);
+	system("cls");
 	for (int i = 0; i < size; i++)
 	{
 		cout << "--------------------------" << endl;
 		cout << "|" << setw(6) << arr[i].a << "  |" << setw(4) << arr[i].n << "  |" << setw(6) << arr[i].g << "  |" << endl;
-		out << "----------------------------" << endl;
+		out << "------------------------------" << endl;
 		out << "|" << setw(7) << arr[i].a << "\t|" << setw(5) << arr[i].n << "  |" << setw(6) << arr[i].g << "  |" << endl;
 	}
 	cout << "--------------------------" << endl << endl;
-	out << "----------------------------";
+	out << "------------------------------";
+}
+
+void CreateStruct(book* arr, int size)
+{
+	system("cls");
+	int p;
+	cout << "Random \t\t- 1\nManually \t- 2" << endl;
+	cin >> p;
+	system("cls");
+	ofstream out;
+	out.open("in.txt", ofstream::out | ofstream::trunc);
+	switch (p)
+	{
+	case 1:
+		for (auto i = 0; i < size; i++)
+		{
+			arr[i].a = RandomString(size);
+			arr[i].n = rand() % 90 + 10;
+			arr[i].g = rand() % 100 + 1900;
+		}
+		break;
+	case 2:
+		for (auto i = 0; i < size; i++)
+		{
+			cout << i << " Author:\t";
+			cin >> arr[i].a;
+			cout << i << " Number:\t";
+			cin >> arr[i].n;
+			cout << i << " Year:\t";
+			cin >> arr[i].g;
+			cout << endl;
+		}
+	}
+	Print(arr, size);
+}
+
+void EditName(book* arr, int size) {
+	int number = 0;
+	cout << "Enter num of element: ";
+	cin >> number;
+	cout << "Enter title: ";
+	for (int i = 0; i < number; i++)
+	{
+		if (i = number)
+		{
+			cin >> arr[i-1].a;
+		}
+	}
+}
+
+void EditNum(book* arr, int size) {
+	int number = 0;
+	cout << "Enter num of element: ";
+	cin >> number;
+	cout << "Enter title: ";
+	for (int i = 0; i < number; i++)
+	{
+		if (i = number)
+		{
+			cin >> arr[i - 1].n;
+		}
+	}
+}
+void EditYear(book* arr, int size) {
+	int number = 0;
+	cout << "Enter num of element: ";
+	cin >> number;
+	cout << "Enter title: ";
+	for (int i = 0; i < number; i++)
+	{
+		if (i = number)
+		{
+			cin >> arr[i - 1].g;
+		}
+	}
 }
 
 void SortForwAuthor(book* arr, int size)
@@ -286,6 +347,28 @@ void DeleteStruct(book* arr, int& size)
 	system("cls");
 }
 
+
+void Add(book* &arr, int &size)
+{
+	book* arrcopy = new book[size]; //Создаем временную таблицу
+	for (short i = 0; i < size; i++) //Переносим все из основной таблицы в временную
+		arrcopy[i] = arr[i];
+	delete[] arr; //Удаляем основную таблицу
+	size++;
+	arr = new book[size]; //Выделяем память для основной таблицы, но уже на +1 эл-м больше 
+	for (short i = 0; i < size - 1; i++)
+		arr[i] = arrcopy[i]; //Переносим все из временной таблицы в основную
+	delete[] arrcopy; //Удаляем временную таблицу
+
+	//Заполняем новый элемент:
+	cout << "Enter Author: ";
+	cin >> arr[size - 1].a;
+	cout << "Enter Number: ";
+	cin >> arr[size - 1].n;
+	cout << "Enter Year: ";
+	cin >> arr[size - 1].g;
+}
+
 void Green()
 {
 	HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -326,5 +409,5 @@ void CallMenu()
 	Yellow();
 	cout << "Delete by name \t- 7\nDelete by num \t- 8\nDelete by year \t- 9" << endl;
 	Red();
-	cout << "Delete struct \t- 10\nCreate struct \t- 11\nExit \t\t- 12" << endl;
+	cout << "Delete struct \t- 10\nCreate struct \t- 11\nEdit \t\t- 12\nAdd \t\t- 13\nExit \t\t- 14" << endl;
 }
