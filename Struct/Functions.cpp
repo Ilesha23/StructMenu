@@ -83,6 +83,8 @@ void EditName(book* arr, int size) {
 	cout << "Enter num of element: ";
 	cin >> number;
 	cout << "Enter title: ";
+	ofstream out;
+	out.open("in.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < number; i++)
 	{
 		if (i = number)
@@ -97,6 +99,8 @@ void EditNum(book* arr, int size) {
 	cout << "Enter num of element: ";
 	cin >> number;
 	cout << "Enter title: ";
+	ofstream out;
+	out.open("in.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < number; i++)
 	{
 		if (i = number)
@@ -110,6 +114,8 @@ void EditYear(book* arr, int size) {
 	cout << "Enter num of element: ";
 	cin >> number;
 	cout << "Enter title: ";
+	ofstream out;
+	out.open("in.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < number; i++)
 	{
 		if (i = number)
